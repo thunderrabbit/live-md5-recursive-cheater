@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>LiveMD5</title>
+		<style>
+			div, p { text-align: center; }
+			p { font-family: monospace; font-size: 300%; font-weight: bold; }
+			textarea { height: 320px; width: 640px; }
+		</style>
+	</head>
+	<body>
+		<form>
+			<div><textarea id="inp"></textarea></div>
+			<p id="md5"></p>
+		</form>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+		<script>
+(function () {
+	'use strict';
+	var running = false, pending = false, inp, md5;
+	function calc() {
+		var txt;
+		if (!running) {
+			running = true;
+			while (pending) {
+				pending = false;
+				txt = inp.value.trim();
+				md5.innerHTML = txt === "" ? "" : CryptoJS.MD5(txt);
+			}
+			running = false;
+		}
+	}
+	function queue() {
+		if (!pending) {
+			pending = true;
+			calc();
+		}
+	}
+	inp = document.getElementById("inp");
+	md5 = document.getElementById("md5");
+	inp.onkeyup = queue;
+}());
+		</script>
+	</body>
+</html>
