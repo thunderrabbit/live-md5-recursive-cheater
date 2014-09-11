@@ -12,7 +12,7 @@
     <body>
     <form>
         <div>
-            <input type="text" id="desired" />
+            <input type="text" id="desired" value="65"/>
             <textarea id="inp"></textarea></div>
     </form>
     <p id="md5"></p>
@@ -36,7 +36,7 @@
             str = md5.toString();
 
             if(str.match(regexcellent)) {
-                md5s.innerHTML += "<span>" + txt + "</span><p class='nice'>" + md5 + "</p>";
+                md5s.innerHTML += "<span><pre>\"`" + txt + "`\" (" + desired + ")</pre></span><p class='nice'>" + md5 + "</p>";
 //            } else if(str.match(regex)) {
 //                othermd5s.innerHTML += "<span>" + txt + "</span><p>" + md5 + "</p>";
             }
