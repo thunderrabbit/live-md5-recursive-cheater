@@ -12,7 +12,7 @@
     <body>
     <form>
         <div>
-            <input type="text" id="desired" value="65"/>
+            <input type="text" id="desired" value="95"/>
             <textarea id="inp"></textarea></div>
     </form>
     <p id="md5"></p>
@@ -87,6 +87,7 @@
         }
     }
     function queue() {
+	console.log("hi");
         if (!pending) {
             pending = true;
             calc();
@@ -98,7 +99,7 @@
     othermd5s = document.getElementById("othermd5s");
     inp.onkeyup = queue;
 
-    r = {
+   r = {
         a:['A','@'],
         b:['B'],
         c:['C'],
@@ -151,8 +152,10 @@
         X:['x'],
         Y:['y'],
         Z:['z']
-    };
-}());
+					};
+//					r[' '] = [''];
+	})();
+
 		</script>
 	</body>
 </html>
