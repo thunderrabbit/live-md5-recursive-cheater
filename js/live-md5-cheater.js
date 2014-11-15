@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     var pending = false, inp, md5, md5s, othermd5s, variants;
-    var smallToBig, bigToSmall, r;   // r = replacements
+    var smallToBig, bigToSmall, spaceToNone, r;   // r = replacements
 
     /**
      * From http://stackoverflow.com/a/171256/194309
@@ -144,8 +144,9 @@
         Y:['y'],
         Z:['z']
     };
+    spaceToNone[' '] = [''];
+
     r = merge_objects(bigToSmall,smallToBig);
     
-//					r[' '] = [''];
-	})();
+})();
 
