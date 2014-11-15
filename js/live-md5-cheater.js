@@ -1,6 +1,7 @@
 (function () {
     'use strict';
     var pending = false, inp, md5, md5s, othermd5s, variants;
+    var divReplaceWhat, checkboxCollection;
     var smallToBig, bigToSmall, spaceToNone, r;   // r = replacements
 
     /**
@@ -86,6 +87,7 @@
     md5 = document.getElementById("md5");
     md5s = document.getElementById("md5s");
     othermd5s = document.getElementById("othermd5s");
+    divReplaceWhat = document.getElementById("replace-what");
     inp.onkeyup = queue;
 
     smallToBig = {
@@ -144,9 +146,34 @@
         Y:['y'],
         Z:['z']
     };
+    spaceToNone = {};
     spaceToNone[' '] = [''];
 
-    r = merge_objects(bigToSmall,smallToBig);
-    
+    var collection = divReplaceWhat.getElementsByTagName('INPUT');
+    for (var x=0; x<collection.length; x++) {
+        if (collection[x].type.toUpperCase()=='CHECKBOX')
+            collection[x].addEventListener("click",setReplaceObject);
+    }
+
+    function setReplaceObject() {
+        r = {};
+        if(document.getElementById('bigToSmall').checked && document.getElementById('smallToBig').checked && document.getElementById('spaceToNone').checked) {
+            r = merge_objects(merge_objects(bigToSmall,smallToBig),spaceToNone);
+        } else if(document.getElementById('bigToSmall').checked && document.getElementById('smallToBig').checked) {
+            r = merge_objects(bigToSmall,smallToBig);
+        } else if(document.getElementById('bigToSmall').checked && document.getElementById('spaceToNone').checked) {
+            r = merge_objects(smallToBig,spaceToNone);
+        } else if(document.getElementById('smallToBig').checked && document.getElementById('spaceToNone').checked) {
+            r = merge_objects(smallToBig,spaceToNone);
+        } else if(document.getElementById('bigToSmall').checked) {
+            r = bigToSmall;
+        } else if(document.getElementById('smallToBig').checked) {
+            r = smallToBig;
+        } else if(document.getElementById('spaceToNone').checked) {
+            r = spaceToNone;
+        } else {
+            r = {};
+        }
+    }
 })();
 
