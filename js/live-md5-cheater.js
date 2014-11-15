@@ -1,7 +1,22 @@
 (function () {
     'use strict';
-    var pending = false, inp, md5, md5s, othermd5s, variants, r;   // r = replacements
+    var pending = false, inp, md5, md5s, othermd5s, variants;
+    var smallToBig, bigToSmall, r;   // r = replacements
 
+    /**
+     * From http://stackoverflow.com/a/171256/194309
+     * Overwrites obj1's values with obj2's and adds obj2's if non existent in obj1
+     * @param obj1
+     * @param obj2
+     * @returns obj3 a new object based on obj1 and obj2
+     */
+    function merge_objects(obj1,obj2){
+        var obj3 = {};
+        for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
+        for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
+        return obj3;
+    }
+    
     function calcVariants(variants) {
         var txt, md5, str, regex, desired, regexcellent;
         regex = new RegExp(/\d$/);
@@ -34,9 +49,6 @@
             first = txt[0];
             remain = txt.slice(1);
             variants = veryRecurse(remain);
-//            console.log("first " + first);
-//            console.log("remain" + remain);
-//            console.log("variants",variants);
             for(tweaks in variants) {
                 tweak.push(first + variants[tweaks]);
                 for(p in r[first]) {
@@ -65,7 +77,6 @@
         }
     }
     function queue() {
-	console.log("hi");
         if (!pending) {
             pending = true;
             calc();
@@ -77,7 +88,7 @@
     othermd5s = document.getElementById("othermd5s");
     inp.onkeyup = queue;
 
-   r = {
+    smallToBig = {
         a:['A','@'],
         b:['B'],
         c:['C'],
@@ -103,7 +114,9 @@
         w:['W'],
         x:['X'],
         y:['Y'],
-        z:['Z'],
+        z:['Z']
+    };
+    bigToSmall = {
         A:['a','@'],
         B:['b'],
         C:['c'],
@@ -130,7 +143,9 @@
         X:['x'],
         Y:['y'],
         Z:['z']
-					};
+    };
+    r = merge_objects(bigToSmall,smallToBig);
+    
 //					r[' '] = [''];
 	})();
 
