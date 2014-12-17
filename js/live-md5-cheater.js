@@ -2,7 +2,7 @@
     'use strict';
     var pending = false, inp, md5, md5s, othermd5s, variants;
     var divReplaceWhat, checkboxCollection;
-    var smallToBig, bigToSmall, spaceToNone, r;   // r = replacements
+    var smallToBig, bigToSmall, spaceToNone, r = {};   // r = replacements
 
     /**
      * From http://stackoverflow.com/a/171256/194309
